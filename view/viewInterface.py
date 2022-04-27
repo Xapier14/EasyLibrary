@@ -1,3 +1,5 @@
+# ViewInterface
+#   Defines needed functionality for View implementations
 from abc import abstractmethod
 
 class ViewInterface:

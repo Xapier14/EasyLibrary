@@ -1,3 +1,5 @@
+# ControllerInterface
+#   Defines needed functionality for Controller implementations and default implementations
 import PySimpleGUI as sg
 from abc import abstractmethod
 
@@ -6,7 +8,7 @@ class ControllerInterface:
         self.view = view
         return
     @abstractmethod
-    def EventLoop(event, values, model):
+    def EventLoop(self, event, values, model):
         raise NotImplementedError("Subclass must implement abstract method")
     def Show(self, model):
         self.window = sg.Window(self.view.windowTitle, layout=self.view.ConstructLayout(model), size=(self.view.windowWidth, self.view.windowHeight), finalize=True)
