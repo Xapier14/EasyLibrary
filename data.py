@@ -2,13 +2,13 @@
 #   Handles DataStore Singleton Functionality
 
 from argparse import ArgumentError
-import lib.datastoreInterface as dsi
-import lib.localDatastore as localDatastore
+from lib.datastoreInterface import DataStoreInterface
+from lib.localDatastore import LocalDataStore
 
 __datastoreInstance = None
 __datastoreDatabase = "local"
 
-def GetDataStore(database = "local") -> dsi.DataStoreInterface:
+def GetDataStore(database = "local") -> DataStoreInterface:
     global __datastoreInstance
     global __datastoreDatabase
 
@@ -16,7 +16,7 @@ def GetDataStore(database = "local") -> dsi.DataStoreInterface:
         print("Creating DataStore Singleton instance...")
         match database:
             case "local":
-                __datastoreInstance = localDatastore.LocalDataStore()
+                __datastoreInstance = LocalDataStore()
                 __datastoreDatabase = database
             case "sqlite":
                 raise NotImplementedError("SQLite DataStore not yet implemented.")

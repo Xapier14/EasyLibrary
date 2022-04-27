@@ -6,10 +6,20 @@ from lib.datastoreInterface import DataStoreInterface
 
 class LocalDataStore(dsi.DataStoreInterface):
     def __init__(self):
+        # Users
         self.Users = {}
-        self.Books = {}
-        self.Active = {}
+        # Global Book Data
+        self.GlobalBooks = {}
+        # Local Book Data / Inventory-Stock
+        self.LocalBooks = {}
+        # Transactions (Borrows)
+        self.Borrows = {}
+        # Transactions (Returns)
+        self.Returned = {}
         return
     
     def GetUser(self, username):
-        print(f"Getting user '{username}'...")
+        for user in self.Users:
+            if user.username == username:
+                return user
+        return None
