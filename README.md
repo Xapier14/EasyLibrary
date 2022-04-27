@@ -4,8 +4,8 @@ A simple library management system.
 ## Features
 
 - [ ] User Authentication
-- [ ] Self-Operate Kiosk Mode
-- [ ] Operated/Attended Mode
+- [ ] Self-Operate Kiosk Mode (User-Level Authorization)
+- [ ] Operated/Attended Mode (Administrator-Level Authorization)
 - [ ] Book Database
     - [ ] Add
     - [ ] Delete
@@ -24,6 +24,8 @@ A simple library management system.
         - [ ] Administrator
         - [ ] User
 - [ ] Borrowing System
+    - [ ] Borrow
+    - [ ] Return
 
 ## Dependencies
 - PySimpleGUI
