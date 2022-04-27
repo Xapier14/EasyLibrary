@@ -1,6 +1,7 @@
 # Controller for Self-Service mode
 import PySimpleGUI as sg
-from controllerInterface import ControllerInterface
+import app
+from controller.controllerInterface import ControllerInterface
 
 class SelfController(ControllerInterface):
     def EventLoop(self, event, values, model):
@@ -9,5 +10,6 @@ class SelfController(ControllerInterface):
             model.password = values["-password-"]
         match (event):
             case sg.WIN_CLOSED:
+                app.PopControllerFromStack()
                 return True
-        return
+        return False

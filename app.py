@@ -1,7 +1,5 @@
 # App Module
 #   Handles the general flow of the application
-import PySimpleGUI as sg
-import data
 
 controllerStack = []
 
@@ -10,13 +8,18 @@ def PushControllerToStack(controller, model = None):
     controllerStack.append(tuple((controller, model)))
     return
 
+def PushPairToStack(tuple):
+    global controllerStack
+    controllerStack.append(tuple)
+    return
+
 def PopControllerFromStack():
     global controllerStack
     return controllerStack.pop()
 
 def PeekControllerFromStack():
     global controllerStack
-    return controllerStack[-1]
+    return (controllerStack[-1][0], controllerStack[-1][1])
 
 def HasControllerOnStack():
     global controllerStack

@@ -1,10 +1,9 @@
 # LocalDataStore
 #   DataStore that functions on a local JSON database.
 
-import datastore.datastoreInterface as dsi
 from datastore.datastoreInterface import DataStoreInterface
 
-class LocalDataStore(dsi.DataStoreInterface):
+class LocalDataStore(DataStoreInterface):
     def __init__(self):
         # Users
         self.Users = {}

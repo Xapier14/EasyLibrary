@@ -1,4 +1,6 @@
 import PySimpleGUI as sg
+import app
+import make
 from controller.controllerInterface import ControllerInterface
 
 class LoginController(ControllerInterface):
@@ -8,5 +10,10 @@ class LoginController(ControllerInterface):
             model.password = values["-password-"]
         match (event):
             case sg.WIN_CLOSED:
+                app.PopControllerFromStack()
                 return True
-        return
+            case "OK":
+                app.PushPairToStack(make.MakeSelfService())
+                print("EVENT OK!")
+                return True
+        return False
