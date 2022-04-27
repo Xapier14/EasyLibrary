@@ -1,5 +1,11 @@
 import data
 
 datastore = data.GetDataStore()
+datastore1 = data.GetDataStore()
+datastore2 = data.GetDataStore()
 
-print(data.__datastoreInstance)
+print(datastore)
+print(datastore1)
+print(datastore2)
+
+print(datastore == datastore1 == datastore2)
