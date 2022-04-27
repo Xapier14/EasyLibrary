@@ -1,16 +1,20 @@
+import PySimpleGUI as sg
 from abc import abstractmethod
 
-
 class ControllerInterface:
-    @abstractmethod
     def __init__(self, view):
-        raise NotImplementedError("Subclass must implement abstract method")
-    @abstractmethod
-    def InitializeComponents():
-        raise NotImplementedError("Subclass must implement abstract method")
+        self.view = view
+        return
     @abstractmethod
     def EventLoop(event, values, model):
         raise NotImplementedError("Subclass must implement abstract method")
-    @abstractmethod
     def Show(self, model):
-        raise NotImplementedError("Subclass must implement abstract method")
+        self.window = sg.Window(self.view.windowTitle, layout=self.view.ConstructLayout(model), size=(self.view.windowWidth, self.view.windowHeight), finalize=True)
+        if (self.view.startMaximized):
+            self.window.Maximize()
+        while True:
+            event, values = self.window.read()
+            if self.EventLoop(event, values, model):
+                break
+        self.window.close()
+        return

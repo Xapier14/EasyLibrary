@@ -2,8 +2,8 @@
 #   Handles DataStore Singleton Functionality
 
 from argparse import ArgumentError
-from lib.datastoreInterface import DataStoreInterface
-from lib.localDatastore import LocalDataStore
+from datastore.datastoreInterface import DataStoreInterface
+from datastore.localDatastore import LocalDataStore
 
 __datastoreInstance = None
 __datastoreDatabase = "local"

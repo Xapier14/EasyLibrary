@@ -1,21 +1,10 @@
 import data
-import gui
+import app
 
 datastore = data.GetDataStore()
-datastore1 = data.GetDataStore()
-datastore2 = data.GetDataStore()
 
-datastore.GetUser("lance")
+app.PrepareLogin()
 
-print(datastore)
-print(datastore1)
-print(datastore2)
-
-print(datastore == datastore1 == datastore2)
-
-loginWindow = gui.MakeLoginController()
-loginModel = gui.MakeLoginModel()
-
-loginWindow.Show(loginModel)
-
-loginWindow.Show(loginModel)
+while app.HasControllerOnStack():
+    controller, model = app.PopControllerFromStack()
+    controller.Show(model)
