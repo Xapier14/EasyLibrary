@@ -14,6 +14,10 @@ def PopControllerFromStack():
     global controllerStack
     return controllerStack.pop()
 
+def PeekControllerFromStack():
+    global controllerStack
+    return controllerStack[-1]
+
 def HasControllerOnStack():
     global controllerStack
     return len(controllerStack) > 0
