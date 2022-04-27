@@ -10,9 +10,17 @@ class LoginView(ViewInterface):
         return
 
     def ConstructLayout(self, model):
-        layout = [  [sg.Text("Hello ROW 1")],
-                    [sg.Text("Hello ROW 2")],
-                    [sg.Input(key="-username-" , default_text=model.username)],
-                    [sg.Input(key="-password-", default_text=model.password, password_char="*")],
-                    [sg.Button("OK")] ]
-        return layout
+        leftColumn = sg.Column([    [sg.Text("EasyLibrary")],
+                                    [sg.Text("The time is: -insert-time-", key="-time-")],
+                                    [sg.Text("There are currently {} book(s) registered in the database.")]   ]
+                                , key="-left-column-", expand_y=True, expand_x=True, justification="left", element_justification="left")
+
+        rightColumn = sg.Column([   [sg.VPush()],
+                                    [sg.Text("Login")],
+                                    [sg.Text("Username", size=(10,1)), sg.InputText(default_text=model.username, key="-username-", size=(30,1))],
+                                    [sg.Text("Password", size=(10,1)), sg.InputText(default_text=model.password, key="-password-", password_char="*", size=(30,1))],
+                                    [sg.Push(), sg.Button("OK", key="OK")]]
+                                , key="-right-column-", expand_y=True, justification="right")
+        return [[leftColumn],
+                [rightColumn],
+                [sg.Text("Bottom Text")]]

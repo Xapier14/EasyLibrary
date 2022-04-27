@@ -24,3 +24,15 @@ def PeekControllerFromStack():
 def HasControllerOnStack():
     global controllerStack
     return len(controllerStack) > 0
+
+def ClearControllerStack():
+    global controllerStack
+    controllerStack.clear()
+    return
+
+def GetFirstControllerPairFromStack(controllerType):
+    global controllerStack
+    for controller, model in controllerStack:
+        if (type(controller) == controllerType):
+            return controller, model
+    return None

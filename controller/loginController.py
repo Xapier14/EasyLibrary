@@ -1,9 +1,9 @@
 import PySimpleGUI as sg
 import app
 import make
-from controller.controllerInterface import ControllerInterface
+from controller.baseController import Controller
 
-class LoginController(ControllerInterface):
+class LoginController(Controller):
     def EventLoop(self, event, values, model):
         if (values != None):
             model.username = values["-username-"]
@@ -13,7 +13,8 @@ class LoginController(ControllerInterface):
                 app.PopControllerFromStack()
                 return True
             case "OK":
+                model.username = ""
+                model.password = ""
                 app.PushPairToStack(make.MakeSelfService())
-                print("EVENT OK!")
                 return True
         return False

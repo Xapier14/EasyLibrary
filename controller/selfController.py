@@ -1,9 +1,9 @@
 # Controller for Self-Service mode
 import PySimpleGUI as sg
 import app
-from controller.controllerInterface import ControllerInterface
+from controller.baseController import Controller
 
-class SelfController(ControllerInterface):
+class SelfController(Controller):
     def EventLoop(self, event, values, model):
         if (values != None):
             model.username = values["-username-"]

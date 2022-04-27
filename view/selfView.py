@@ -6,7 +6,7 @@ class SelfView(ViewInterface):
         self.windowWidth = 1280
         self.windowHeight = 720
         self.windowTitle = "Self-Service Mode - EasyLibrary"
-        self.startMaximized = False
+        self.startMaximized = True
         return
     def ConstructLayout(self, model):
         layout = [  [sg.Text("Hello World")]

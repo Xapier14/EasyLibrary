@@ -1,3 +1,8 @@
+# EasyLibrary
+# Lance Crisang - 2022
+
+# https://www.github.com/xapier14/EasyLibrary
+
 import data
 import app
 import make
