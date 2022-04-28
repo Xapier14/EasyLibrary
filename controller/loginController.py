@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 
 import datetime
+import webbrowser
 
 import app
 import make
@@ -14,11 +15,17 @@ class LoginController(Controller):
             case sg.WIN_CLOSED:
                 app.PopControllerFromStack()
                 return True
+            case sg.WIN_X_EVENT:
+                if (self.WinClose()):
+                    return True
             case "-button-self-":
                 if (self.button_self_login(model)):
                     return True
             case "-button-admin-":
                 if (self.button_admin_login(model)):
+                    return True
+            case "-project-link-":
+                if (self.link_projectOpen(model)):
                     return True
             case "-username-":
                 model.username = values["-username-"]
@@ -31,6 +38,14 @@ class LoginController(Controller):
     def Update(self, model):
         self.window["-time-"].update("The time is: " + str(datetime.datetime.now()))
         return
+
+    def WinClose(self):
+        app.PopControllerFromStack()
+        return True
+
+    def link_projectOpen(self, model):
+        webbrowser.open("https://www.github.com/xapier14/EasyLibrary")
+        return False
 
     def button_self_login(self, model):
         datastore = data.GetDataStore()
