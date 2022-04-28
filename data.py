@@ -22,7 +22,7 @@ def GetDataStore(database = "local") -> DataStoreInterface:
                 raise NotImplementedError("SQLite DataStore not yet implemented.")
             case _:
                 raise ArgumentError(None, "Unknown DataStore type specified.")
-    else:
-        print("Reusing DataStore Singleton instance...")
+    # else:
+        # print("Reusing DataStore Singleton instance...")
 
     return __datastoreInstance
