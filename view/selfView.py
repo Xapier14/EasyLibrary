@@ -9,15 +9,15 @@ class SelfView(ViewInterface):
         self.startMaximized = False
         return
     def ConstructLayout(self, model):
-        buttonSize = (18, 2)
+        buttonSize = (18, 4)
         actions = [ sg.Push(),
                     sg.Button("Search for a book", key="-button-search-", size=buttonSize),
                     sg.Button("Borrow a book", key="-button-borrow-", size=buttonSize),
                     sg.Button("Return a book", key="-button-return-", size=buttonSize),
                     sg.Button("Logout", key="-button-logout-", size=buttonSize),
                     sg.Push() ]
-        layout = [  [sg.Text("EasyLibrary")],
-                    [sg.Text("Logged in as " + model.user.GetUsername())],
+        layout = [  [sg.Text("EasyLibrary - User View")],
+                    [sg.Text(f"Logged in as {model.user.GetUsername()}.")],
                     [sg.VPush()],
                     actions,
                     [sg.VPush()] ]
