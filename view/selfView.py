@@ -13,3 +13,5 @@ class SelfView(ViewInterface):
                     [sg.Text("Logged in as " + model.user.GetUsername())],
                     ]
         return layout
+    def Update(self, window, model):
+        return

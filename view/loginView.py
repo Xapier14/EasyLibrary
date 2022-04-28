@@ -17,10 +17,13 @@ class LoginView(ViewInterface):
 
         rightColumn = sg.Column([   [sg.VPush()],
                                     [sg.Text("Login")],
-                                    [sg.Text("Username", size=(10,1)), sg.InputText(default_text=model.username, key="-username-", size=(30,1))],
-                                    [sg.Text("Password", size=(10,1)), sg.InputText(default_text=model.password, key="-password-", password_char="*", size=(30,1))],
+                                    [sg.Text("Username", size=(10,1)), sg.InputText(default_text=model.username, key="-username-", size=(30,1), enable_events=True)],
+                                    [sg.Text("Password", size=(10,1)), sg.InputText(default_text=model.password, key="-password-", password_char="*", size=(30,1), enable_events=True)],
                                     [sg.Push(), sg.Button("OK", key="OK")]]
                                 , key="-right-column-", expand_y=True, justification="right")
         return [[leftColumn],
                 [rightColumn],
                 [sg.Text("Bottom Text")]]
+    
+    def Update(self, window, model):
+        return

@@ -27,3 +27,6 @@ class Controller:
             self.Update(model)
         self.window.close()
         return
+    def ModelUpdated(self, model):
+        self.view.Update(model)
+        return

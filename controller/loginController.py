@@ -8,9 +8,6 @@ from controller.baseController import Controller
 
 class LoginController(Controller):
     def EventLoop(self, event, values, model):
-        if (values != None):
-            model.username = values["-username-"]
-            model.password = values["-password-"]
         match (event):
             case sg.WIN_CLOSED:
                 app.PopControllerFromStack()
@@ -18,6 +15,12 @@ class LoginController(Controller):
             case "OK":
                 if (self.button_login(model)):
                     return True
+            case "-username-":
+                model.username = values["-username-"]
+                self.ModelUpdated(self.window, model)
+            case "-password-":
+                model.password = values["-password-"]
+                self.ModelUpdated(self.window, model)
         return False
     
     def Update(self, model):

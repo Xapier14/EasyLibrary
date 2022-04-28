@@ -6,5 +6,5 @@ class ViewInterface:
     @abstractmethod
     def ConstructLayout(self, model):
         raise NotImplementedError("Subclass must implement abstract method")
-    def Update(self, model):
+    def Update(self, window, model):
         raise NotImplementedError("Subclass must implement abstract method")
