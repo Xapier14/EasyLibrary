@@ -11,8 +11,8 @@ class LoginView(ViewInterface):
 
     def ConstructLayout(self, model):
         leftColumn = sg.Column([    [sg.Text("EasyLibrary")],
-                                    [sg.Text("The time is: -insert-time-", key="-time-")],
-                                    [sg.Text("There are currently {} book(s) registered in the database.")]   ]
+                                    [sg.Text("The time is: ", key="-time-")],
+                                    [sg.Text(f"There are currently {model.bookCount} book(s) registered in the database.")]   ]
                                 , key="-left-column-", expand_y=True, expand_x=True, justification="left", element_justification="left")
 
         rightColumn = sg.Column([   [sg.VPush()],

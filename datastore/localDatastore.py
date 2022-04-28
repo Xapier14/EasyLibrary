@@ -29,3 +29,6 @@ class LocalDataStore(DataStoreInterface):
         else:
             return False
         return True
+    
+    def CountBooks(self):
+        return len(self.GlobalBooks)
