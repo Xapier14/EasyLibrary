@@ -7,8 +7,15 @@ import data
 import app
 import make
 
+from dataModel.user import User
+from enums import UserEnum
+
 # Prepare datastore
 datastore = data.GetDataStore()
+
+lance = User("lance", UserEnum.User)
+lance.SetPassword("12345678")
+datastore.AddUser(lance)
 
 # Prepare initial login controller
 app.PushPairToStack(make.MakeLogin(datastore))

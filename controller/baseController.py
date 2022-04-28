@@ -11,6 +11,8 @@ class Controller:
     @abstractmethod
     def EventLoop(self, event, values, model):
         raise NotImplementedError("Subclass must implement abstract method")
+    def Update(self, model):
+        raise NotImplementedError("Subclass must implement abstract method")
     def Show(self, model):
         sg.theme(self.theme)
         self.window = sg.Window(self.view.windowTitle, layout=self.view.ConstructLayout(model), size=(self.view.windowWidth, self.view.windowHeight), finalize=True)
@@ -19,8 +21,9 @@ class Controller:
         # weird fix to force window focus
         self.window.TKroot.focus_force()
         while True:
-            event, values = self.window.read()
+            event, values = self.window.read(200)
             if self.EventLoop(event, values, model):
                 break
+            self.Update(model)
         self.window.close()
         return

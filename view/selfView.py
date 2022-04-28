@@ -9,6 +9,7 @@ class SelfView(ViewInterface):
         self.startMaximized = True
         return
     def ConstructLayout(self, model):
-        layout = [  [sg.Text("Hello World")]
+        layout = [  [sg.Text("Hello World")],
+                    [sg.Text("Logged in as " + model.user.GetUsername())],
                     ]
         return layout
