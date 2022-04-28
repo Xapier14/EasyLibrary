@@ -3,7 +3,7 @@ A simple library management system.
 
 ## Features
 
-- [ ] User Authentication
+- [x] User Authentication
 - [ ] Self-Operate Kiosk Mode (User-Level Authorization)
 - [ ] Operated/Attended Mode (Administrator-Level Authorization)
 - [ ] Book Database
@@ -16,7 +16,7 @@ A simple library management system.
     - [ ] Book Location
     - [ ] Duplicate Count
 - [ ] User Database
-    - [ ] Add
+    - [x] Add
     - [ ] Delete
     - [ ] Edit
     - [ ] Search
@@ -29,3 +29,4 @@ A simple library management system.
 
 ## Dependencies
 - PySimpleGUI
+- bcrypt
