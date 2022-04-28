@@ -20,9 +20,17 @@ def GetDataStore(database = "local") -> DataStoreInterface:
                 __datastoreDatabase = database
             case "sqlite":
                 raise NotImplementedError("SQLite DataStore not yet implemented.")
+            case "sqlserver":
+                raise NotImplementedError("SQL Server DataStore not yet implemented.")
+            case "mongodb":
+                raise NotImplementedError("MongoDB DataStore not yet implemented.")
             case _:
                 raise ArgumentError(None, "Unknown DataStore type specified.")
     # else:
         # print("Reusing DataStore Singleton instance...")
 
     return __datastoreInstance
+
+def GetDatabaseType() -> str:
+    global __datastoreDatabase
+    return __datastoreDatabase

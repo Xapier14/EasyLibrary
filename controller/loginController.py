@@ -1,5 +1,7 @@
-import datetime
 import PySimpleGUI as sg
+
+import datetime
+
 import app
 import make
 import data
@@ -45,6 +47,8 @@ class LoginController(Controller):
             sg.Popup("Invalid username or password")
             return False
         app.PushPairToStack(make.MakeSelfService(user))
+        model.username = ""
+        model.password = ""
         return True
 
     def button_admin_login(self, model):
