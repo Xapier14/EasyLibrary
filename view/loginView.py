@@ -19,11 +19,11 @@ class LoginView(ViewInterface):
                                     [sg.Text("Login")],
                                     [sg.Text("Username", size=(10,1)), sg.InputText(default_text=model.username, key="-username-", size=(30,1), enable_events=True)],
                                     [sg.Text("Password", size=(10,1)), sg.InputText(default_text=model.password, key="-password-", password_char="*", size=(30,1), enable_events=True)],
-                                    [sg.Push(), sg.Button("Login as User", key="-button-self-"), sg.Button("Login as Admin", key="-button-admin-")]]
+                                    [sg.Button("Create Account", key="-button-create-"), sg.Push(), sg.Button("Login as Admin", key="-button-admin-"), sg.Push(), sg.Button("Login as User", key="-button-self-", bind_return_key=True)]   ]
                                 , key="-right-column-", expand_y=True, justification="right")
         return [[leftColumn],
                 [rightColumn],
-                [sg.Text("Bottom Text")]]
+                [sg.Text("Bottom Text"), sg.Push()]]
     
     def Update(self, window, model):
         window["-books-"].update(f"There are currently {model.bookCount} book(s) registered in the database.")

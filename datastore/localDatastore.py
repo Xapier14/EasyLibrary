@@ -1,10 +1,15 @@
 # LocalDataStore
 #   DataStore that functions on a local JSON database.
 
+from re import S
 from datastore.datastoreInterface import DataStoreInterface
 
 class LocalDataStore(DataStoreInterface):
     def __init__(self):
+        self.ReloadData()
+        return
+
+    def ReloadData(self):
         # Users
         self.Users = []
         # Global Book Data
@@ -15,6 +20,8 @@ class LocalDataStore(DataStoreInterface):
         self.Borrows = []
         # Transactions (Returns)
         self.Returned = []
+
+        
         return
     
     def GetUser(self, username):
