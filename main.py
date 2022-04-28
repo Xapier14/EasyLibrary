@@ -7,7 +7,7 @@ import data
 import app
 import make
 
-from dataModel.user import User
+from datamodel.user import User
 from enums import UserEnum
 
 # Prepare datastore
