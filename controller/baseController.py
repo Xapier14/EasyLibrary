@@ -24,14 +24,16 @@ class Controller:
         # weird fix to force window focus
         self.window.TKroot.focus_force()
         while True:
-            event, values = self.window.read(200)
-            if self.EventLoop(event, values, model):
+            # wait for 200ms for window events.
+            # if this receives an event within 200ms, process the event immediately and continue waiting for the next event.
+            event, values = self.window.read(200, timeout_key="-timeout-")
+            if self.EventLoop(event, values, model) and event != "-timeout-":
                 break
             self.Update(model)
         self.window.close()
         print("Controller end.")
         return
     def ModelUpdated(self, model):
-        print(f"[{type(self).__name__}] Model updated. ({type(model).__name__})")
+        # print(f"[{type(self).__name__}] Model updated. ({type(model).__name__})")
         self.view.Update(self.window, model)
         return
