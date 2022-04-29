@@ -29,10 +29,8 @@ class LoginController(Controller):
                     return True
             case "-username-":
                 model.username = values["-username-"]
-                self.ModelUpdated(model)
             case "-password-":
                 model.password = values["-password-"]
-                self.ModelUpdated(model)
         return False
     
     def Update(self, model):
@@ -52,18 +50,21 @@ class LoginController(Controller):
 
         user = datastore.GetUser(model.username)
         if (user == None):
-            self.window["-username-"].update("")
-            self.window["-password-"].update("")
+            model.username = ""
+            model.password = ""
+            self.ModelUpdated(model)
             sg.Popup("Invalid username or password")
             return False
         if (not user.TestPassword(model.password)):
-            self.window["-username-"].update("")
-            self.window["-password-"].update("")
+            model.username = ""
+            model.password = ""
+            self.ModelUpdated(model)
             sg.Popup("Invalid username or password")
             return False
         app.PushPairToStack(make.MakeSelfService(user))
         model.username = ""
         model.password = ""
+        self.ModelUpdated(model)
         return True
 
     def button_admin_login(self, model):
