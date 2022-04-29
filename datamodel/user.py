@@ -2,15 +2,21 @@ from enums import UserEnum
 import bcrypt
 
 class User():
-    def __init__(self, username = "", level = UserEnum.User):
+    def __init__(self, username = "", level = UserEnum.User, password = "", salt = "", fullName = ""):
         self.__username = username
-        self.__hashedPassword = ""
-        self.__salt = ""
-        self.__fullName = ""
+        self.__hashedPassword = password
+        self.__salt = salt
+        self.__fullName = fullName
         self.__accessLevel = level
 
     def GetUsername(self):
         return self.__username
+
+    def GetHashedPassword(self):
+        return self.__hashedPassword
+
+    def GetSalt(self):
+        return self.__salt
 
     def GetFullName(self):
         return self.__fullName
