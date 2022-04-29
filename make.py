@@ -1,12 +1,15 @@
 # models
 from model.loginModel import LoginModel
+from model.searchModel import SearchModel
 from model.selfModel import SelfModel
 # views
 from view.loginView import LoginView
+from view.searchView import SearchView
 from view.selfView import SelfView
 # controllers
 from controller.loginController import LoginController
 from controller.selfController import SelfController
+from controller.searchController import SearchController
 
 
 def MakeLogin(datastore):
@@ -20,3 +23,9 @@ def MakeSelfService(user):
     selfView = SelfView()
     selfController = SelfController(selfView)
     return selfController, selfModel
+
+def MakeSearchService():
+    searchModel = SearchModel()
+    searchView = SearchView()
+    searchController = SearchController(searchView)
+    return searchController, searchModel
