@@ -14,12 +14,14 @@ class SelfView(ViewInterface):
                     sg.Button("Search for a book", key="-button-search-", size=buttonSize),
                     sg.Button("Borrow a book", key="-button-borrow-", size=buttonSize),
                     sg.Button("Return a book", key="-button-return-", size=buttonSize),
-                    sg.Button("Logout", key="-button-logout-", size=buttonSize),
+                    sg.Button("View due books", key="-button-due-", size=buttonSize),
+                    sg.Button("View past transactions", key="-button-history-", size=buttonSize),
                     sg.Push() ]
         layout = [  [sg.Text("EasyLibrary - User View")],
                     [sg.Text(f"Logged in as {model.user.GetUsername()}.")],
                     [sg.VPush()],
                     actions,
+                    [sg.Push(), sg.Button("Logout", key="-button-logout-", size=buttonSize), sg.Push()],
                     [sg.VPush()] ]
         return layout
     def Update(self, window, model):
