@@ -12,8 +12,8 @@ class SearchController(Controller):
             case sg.WIN_X_EVENT:
                 if (self.WinClose()):
                     return True
-            case "-button-logout-":
-                if (self.button_logout(model)):
+            case "-button-back-":
+                if (self.button_back(model)):
                     return True
         return False
 
@@ -23,6 +23,6 @@ class SearchController(Controller):
     def Update(self, model):
         return
 
-    def button_logout(self, model):
+    def button_back(self, model):
         app.PopControllerFromStack()
         return True
