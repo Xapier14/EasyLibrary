@@ -14,17 +14,17 @@ class SearchView(ViewInterface):
         bookList = []
         if (len(model.books) > 0):
             for book in model.books:
-                bookEntry = [book.GetTitle(), book.GetAuthor(), book.GetISBN(), book.GetYear(), book.GetPublisher()]
+                bookEntry = [book.GetTitle(), book.GetAuthor(), book.GetISBN(), book.GetYear(), book.GetGenre(), book.GetPublisher()]
                 bookList.append(bookEntry)
         else:
             bookList.append(["No books found."])
 
-        listColumn = [[sg.Table(bookList, headings=["Title", "Author", "ISBN", "Year", "Genre", "Publisher"], expand_x=True, expand_y=True) ]]
+        listColumn = [[sg.Table(bookList, headings=["Title", "Author", "ISBN", "Year", "Genre", "Publisher"], expand_x=True, expand_y=True, enable_click_events=True, vertical_scroll_only=True, justification="left") ]]
         detailsColumn = [[sg.Text("details")]]
         layout = [  [sg.Text("EasyLibrary - Self-Service Mode")],
                     [sg.Text("Search for books")],
                     [sg.Column(listColumn, expand_y=True, expand_x=True), sg.Column(detailsColumn, expand_y=True, expand_x=True)],
-                    [sg.Push(), sg.Button("Logout", key="-button-logout-", size=buttonSize)] ]
+                    [sg.Push(), sg.Button("Go Back", key="-button-back-", size=buttonSize)] ]
         return layout
     def Update(self, window, model):
         return
