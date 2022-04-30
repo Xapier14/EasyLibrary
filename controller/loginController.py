@@ -10,6 +10,9 @@ import data
 from controller.baseController import Controller
 
 class LoginController(Controller):
+    def Init(self, model):
+        data.GetDataStore().SaveData()
+        return
     def EventLoop(self, event, values, model):
         match (event):
             case sg.WIN_CLOSED:
