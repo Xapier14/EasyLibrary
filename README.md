@@ -2,7 +2,7 @@
 A simple library management system.
 
 ## Getting Started
-***Optional: ***You might want to set-up a virtualenv just to keep things tidy.
+***Optional:*** You might want to set-up a virtualenv just to keep things tidy.
 ### Clone the repo and install dependencies:
 ```Shell
 git clone https://github.com/Xapier14/EasyLibrary.git
