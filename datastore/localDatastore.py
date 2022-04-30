@@ -4,6 +4,7 @@
 import json
 import base64
 from datamodel.user import User
+from datamodel.book import Book
 from datastore.datastoreInterface import DataStoreInterface
 from enums import UserEnum
 
@@ -32,19 +33,33 @@ class LocalDataStore(DataStoreInterface):
         # Transactions (Returns)
         self.Returned = []
 
+        # load User Data
         f = open("localDb/users.json", "r")
-
         users = json.load(f)
         for userEntry in users:
             userType = userEntry["isAdmin"] if UserEnum.Admin else UserEnum.User
             user = User(userEntry["username"], userType, base64.b64decode(bytes(userEntry["password"], "utf-8")), base64.b64decode(bytes(userEntry["salt"], "utf-8")), userEntry["fullName"])
             self.Users.append(user)
-
         f.close()
+
+        # load Global Book Data
+        f = open("localDb/globalBooks.json", "r")
+        books = json.load(f)
+        for bookEntry in books:
+            book = Book()
+            book.SetISBN(bookEntry["isbn"])
+            book.SetTitle(bookEntry["title"])
+            book.SetAuthor(bookEntry["author"])
+            book.SetPublisher(bookEntry["publisher"])
+            book.SetYear(bookEntry["year"])
+            book.SetGenre(bookEntry["genre"])
+            self.GlobalBooks.append(book)
+        f.close()
+
         return
     
     def SaveData(self):
-        # Write user data
+        # write user data
         f = open("localDb/users.json", "w")
         f.write("[")
         for user in self.Users:
@@ -67,6 +82,25 @@ class LocalDataStore(DataStoreInterface):
         f.close()
         LocalDataStore.Prettify("localDb/users.json")
         
+        # write global book data
+        f = open("localDb/globalBooks.json", "w")
+        f.write("[")
+        for book in self.GlobalBooks:
+            f.write("{")
+            f.write("\"isbn\": \"" + book.GetISBN() + "\",")
+            f.write("\"title\": \"" + book.GetTitle() + "\",")
+            f.write("\"author\": \"" + book.GetAuthor() + "\",")
+            f.write("\"publisher\": \"" + book.GetPublisher() + "\",")
+            f.write("\"year\": \"" + book.GetYear() + "\",")
+            f.write("\"genre\": \"" + book.GetGenre() + "\"")
+            if book == self.GlobalBooks[-1]:
+                f.write("}")
+            else:
+                f.write("},")
+        f.write("]")
+        f.close()
+        LocalDataStore.Prettify("localDb/globalBooks.json")
+
         return
     
     def GetUser(self, username):
@@ -82,5 +116,21 @@ class LocalDataStore(DataStoreInterface):
             return False
         return True
     
+    def GetBook(self, isbn):
+        for book in self.GlobalBooks:
+            if book.GetISBN() == isbn:
+                return book
+        return None
+    
+    def AddBook(self, book):
+        if (self.GetBook(book.GetISBN()) == None):
+            self.GlobalBooks.append(book)
+        else:
+            return False
+        return True
+    
     def CountBooks(self):
         return len(self.GlobalBooks)
+
+    def GetAllBooks(self):
+        return self.GlobalBooks
