@@ -1,3 +1,5 @@
+import data
+
 # models
 from model.loginModel import LoginModel
 from model.searchModel import SearchModel
@@ -25,7 +27,9 @@ def MakeSelfService(user):
     return selfController, selfModel
 
 def MakeSearchService():
+    datastore = data.GetDataStore()
     searchModel = SearchModel()
+    searchModel.books = datastore.GetAllBooks()
     searchView = SearchView()
     searchController = SearchController(searchView)
     return searchController, searchModel
