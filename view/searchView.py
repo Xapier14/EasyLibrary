@@ -1,4 +1,6 @@
 import PySimpleGUI as sg
+import data
+import imageTool
 from view.viewInterface import ViewInterface
 
 class SearchView(ViewInterface):
@@ -19,8 +21,18 @@ class SearchView(ViewInterface):
         else:
             bookList.append(["No books found."])
 
+        detailBoxSize = (38, 1)
+        detailTextSize = (10, 1)
         listColumn = [[sg.Table(bookList, headings=["Title", "Author", "ISBN", "Year", "Genre", "Publisher"], expand_x=True, expand_y=True, enable_click_events=True, vertical_scroll_only=True, justification="left", key="-table-books-") ]]
-        detailsColumn = [[sg.Text("details", key="-details-")]]
+        detailsFrame = [[sg.Text("Title: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-title-", expand_x=True)],
+                        [sg.Text("Author: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-author-", expand_x=True)],
+                        [sg.Text("ISBN: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-isbn-", expand_x=True)],
+                        [sg.Text("Year: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-year-", expand_x=True)],
+                        [sg.Text("Genre: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-genre-", expand_x=True)],
+                        [sg.Text("Publisher: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-publisher-", expand_x=True)]]
+        imageFrame = [[sg.Image(key="-image-", size=(300, 300))]];
+        detailsColumn = [   [sg.Frame("Details", detailsFrame, expand_x=True, element_justification="right")],
+                            [sg.Frame("Book Cover", imageFrame, expand_x=True, expand_y=True, element_justification="center")] ]
         layout = [  [sg.Text("EasyLibrary - Self-Service Mode")],
                     [sg.Text("Search for books")],
                     [sg.Column(listColumn, expand_y=True, expand_x=True), sg.Column(detailsColumn, expand_y=True, expand_x=True)],
@@ -40,5 +52,19 @@ class SearchView(ViewInterface):
 
         # details update
         if model.selectedBook is not None:
-            window["-details-"].update(f"Title: {model.selectedBook.GetTitle()}\nAuthor: {model.selectedBook.GetAuthor()}\nISBN: {model.selectedBook.GetISBN()}\nYear: {model.selectedBook.GetYear()}\nGenre: {model.selectedBook.GetGenre()}\nPublisher: {model.selectedBook.GetPublisher()}")
+            window["-details-title-"].update(model.selectedBook.GetTitle())
+            window["-details-author-"].update(model.selectedBook.GetAuthor())
+            window["-details-isbn-"].update(model.selectedBook.GetISBN())
+            window["-details-year-"].update(model.selectedBook.GetYear())
+            window["-details-genre-"].update(model.selectedBook.GetGenre())
+            window["-details-publisher-"].update(model.selectedBook.GetPublisher())
+            window["-image-"].update(data=imageTool.MakeSizedImage(data.GetDataStore().GetImage(model.selectedBook.GetISBN()), (300, 300)))
+        else:
+            window["-details-title-"].update("")
+            window["-details-author-"].update("")
+            window["-details-isbn-"].update("")
+            window["-details-year-"].update("")
+            window["-details-genre-"].update("")
+            window["-details-publisher-"].update("")
+            window["-image-"].update(data=imageTool.MakeSizedImage(data.GetDataStore().GetImage(), (300, 300)))
         return
