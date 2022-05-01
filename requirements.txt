@@ -1,2 +1,3 @@
 PySimpleGui
 bcrypt
+Pillow
