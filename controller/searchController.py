@@ -32,16 +32,14 @@ class SearchController(Controller):
         return True
 
     def input_query(self, model, inputText):
-        print("Text Updated!")
         model.query = inputText
         model.books = data.GetDataStore().GetAllBooks()
         if (model.query != ""):
             filteredBooks = []
             for book in model.books:
-                if (book.GetTitle().lower().find(model.query.lower())!= -1 or book.GetAuthor().lower().find(model.query.lower())!= -1 or book.GetISBN().lower().find(model.query.lower())!= -1):
+                if (book.GetTitle().lower().find(model.query.lower())!= -1 or book.GetAuthor().lower().find(model.query.lower())!= -1 or book.GetISBN().lower().find(model.query.lower())!= -1 or book.GetYear().lower().find(model.query.lower())!= -1 or book.GetGenre().lower().find(model.query.lower())!= -1 or book.GetPublisher().lower().find(model.query.lower())!= -1):
                     print("Found match!")
                     filteredBooks.append(book)
             model.books = filteredBooks
-            print("Books: " + str(len(model.books)))
         self.ModelUpdated(model)
         return False
