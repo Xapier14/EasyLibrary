@@ -38,7 +38,6 @@ class SearchController(Controller):
             filteredBooks = []
             for book in model.books:
                 if (book.GetTitle().lower().find(model.query.lower())!= -1 or book.GetAuthor().lower().find(model.query.lower())!= -1 or book.GetISBN().lower().find(model.query.lower())!= -1 or book.GetYear().lower().find(model.query.lower())!= -1 or book.GetGenre().lower().find(model.query.lower())!= -1 or book.GetPublisher().lower().find(model.query.lower())!= -1):
-                    print("Found match!")
                     filteredBooks.append(book)
             model.books = filteredBooks
         self.ModelUpdated(model)
