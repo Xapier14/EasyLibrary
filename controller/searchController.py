@@ -30,6 +30,10 @@ class SearchController(Controller):
 
     def WinClose(self):
         return False
+        
+    def Init(self, model):
+        self.ModelUpdated(model)
+        return
     
     def Update(self, model):
         return
