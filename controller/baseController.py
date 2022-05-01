@@ -33,8 +33,9 @@ class Controller:
             # wait for 200ms for window events.
             # if this receives an event within 200ms, process the event immediately and continue waiting for the next event.
             event, values = self.window.read(200, timeout_key="-timeout-")
-            if self.EventLoop(event, values, model) and event != "-timeout-":
-                break
+            if event != "-timeout-":
+                if self.EventLoop(event, values, model):
+                    break
             self.Update(model)
         self.window.close()
         print("Controller end.")
