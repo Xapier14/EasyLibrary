@@ -6,6 +6,7 @@ A simple library management system.
 ### 1. Clone the repo and install dependencies:
 ```Shell
 git clone https://github.com/Xapier14/EasyLibrary.git
+cd ./EasyLibrary
 pip install -r requirements.txt
 ```
 ### 2. Set-up the local datastore:
