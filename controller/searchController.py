@@ -13,6 +13,9 @@ class SearchController(Controller):
             case sg.WIN_X_EVENT:
                 if (self.WinClose()):
                     return True
+            case "-button-clear-":
+                if (self.button_clear(model)):
+                    return True
             case "-button-back-":
                 if (self.button_back(model)):
                     return True
@@ -37,6 +40,11 @@ class SearchController(Controller):
     
     def Update(self, model):
         return
+
+    def button_clear(self, model):
+        model.selectedBook = None
+        self.ModelUpdated(model)
+        return False
 
     def button_back(self, model):
         app.PopControllerFromStack()
