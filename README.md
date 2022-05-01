@@ -3,12 +3,12 @@ A simple library management system.
 
 ## Getting Started
 ***Optional:*** You might want to set-up a virtualenv just to keep things tidy.
-### Clone the repo and install dependencies:
+### 1. Clone the repo and install dependencies:
 ```Shell
 git clone https://github.com/Xapier14/EasyLibrary.git
 pip install -r requirements.txt
 ```
-### Run the program:
+### 2. Run the program:
 ```Shell
 python ./main.py
 ```
