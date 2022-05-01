@@ -4,9 +4,15 @@
 import json
 import base64
 from os.path import exists
+
+# datamodels
 from datamodel.user import User
 from datamodel.book import Book
+
+# datastore interface
 from datastore.datastoreInterface import DataStoreInterface
+
+# user types
 from enums import UserEnum
 
 class LocalDataStore(DataStoreInterface):
@@ -139,7 +145,8 @@ class LocalDataStore(DataStoreInterface):
     def GetImage(self, isbn = None):
         if (isbn != None):
             for book in self.GlobalBooks:
-                path = "localDb/images/" + book.GetISBN() + ".png"
-                if exists(path):
-                    return path
+                if (book.GetISBN() == isbn):
+                    path = "localDb/images/" + book.GetISBN() + ".png"
+                    if exists(path):
+                        return path
         return "localDb/images/default.png"
