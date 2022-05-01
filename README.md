@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ### 2. Set-up the local datastore:
 ```
 ./
-┬ ...
+├ ...
 ├ main.py
 └ localDb/
     ├ images/
