@@ -54,3 +54,4 @@ python ./main.py
 ## Dependencies
 - PySimpleGUI
 - bcrypt
+- Pillow
