@@ -9,7 +9,7 @@ class SelfView(ViewInterface):
         self.startMaximized = False
         return
     def ConstructLayout(self, model):
-        buttonSize = (18, 4)
+        buttonSize = (22, 4)
         actions = [ sg.Push(),
                     sg.Button("Search for a book", key="-button-search-", size=buttonSize),
                     sg.Button("Borrow a book", key="-button-borrow-", size=buttonSize),
