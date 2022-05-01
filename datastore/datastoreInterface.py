@@ -40,7 +40,12 @@ class DataStoreInterface:
     @abstractmethod
     def AddTransactionReturn(self, transaction):
         raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
     def CountBooks(self):
         raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
     def GetAllBooks(self):
+        raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
+    def GetImage(self, isbn):
         raise NotImplementedError("Subclass must implement abstract method")
