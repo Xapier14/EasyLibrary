@@ -29,14 +29,17 @@ class SearchView(ViewInterface):
                         [sg.Text("ISBN: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-isbn-", expand_x=True)],
                         [sg.Text("Year: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-year-", expand_x=True)],
                         [sg.Text("Genre: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-genre-", expand_x=True)],
-                        [sg.Text("Publisher: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-publisher-", expand_x=True)]]
-        imageFrame = [[sg.Image(key="-image-", size=(300, 300))]];
+                        [sg.Text("Publisher: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-publisher-", expand_x=True)],
+                        [sg.Text("Inventory: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-inventory-", expand_x=True)],
+                        [sg.Text("Status: ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-status-", expand_x=True)],
+                        [sg.Text("Location(s): ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-location-", expand_x=True)]]
+        imageFrame = [[sg.Image(key="-image-", size=(280, 280))]];
         detailsColumn = [   [sg.Frame("Details", detailsFrame, expand_x=True, element_justification="right")],
                             [sg.Frame("Book Cover", imageFrame, expand_x=True, expand_y=True, element_justification="center")] ]
         layout = [  [sg.Text("EasyLibrary - Self-Service Mode")],
                     [sg.Text("Search for books")],
                     [sg.Column(listColumn, expand_y=True, expand_x=True), sg.Column(detailsColumn, expand_y=True, expand_x=True)],
-                    [sg.Text("Search Query: "), sg.Input("", size=(50, 1), key="-input-query-", enable_events=True), sg.Push(), sg.Button("Go Back", key="-button-back-", size=buttonSize)] ]
+                    [sg.Text("Search Query: "), sg.Input("", size=(50, 1), key="-input-query-", enable_events=True, expand_x=True), sg.Button("Clear Details", key="-button-clear-", size=buttonSize), sg.Button("Go Back", key="-button-back-", size=buttonSize)] ]
         return layout
     def Update(self, window, model):
         # table update
@@ -58,7 +61,7 @@ class SearchView(ViewInterface):
             window["-details-year-"].update(model.selectedBook.GetYear())
             window["-details-genre-"].update(model.selectedBook.GetGenre())
             window["-details-publisher-"].update(model.selectedBook.GetPublisher())
-            window["-image-"].update(data=imageTool.MakeSizedImage(data.GetDataStore().GetImage(model.selectedBook.GetISBN()), (300, 300)))
+            window["-image-"].update(data=imageTool.MakeSizedImage(data.GetDataStore().GetImage(model.selectedBook.GetISBN()), (280, 280)))
         else:
             window["-details-title-"].update("")
             window["-details-author-"].update("")
@@ -66,5 +69,5 @@ class SearchView(ViewInterface):
             window["-details-year-"].update("")
             window["-details-genre-"].update("")
             window["-details-publisher-"].update("")
-            window["-image-"].update(data=imageTool.MakeSizedImage(data.GetDataStore().GetImage(), (300, 300)))
+            window["-image-"].update(data=imageTool.MakeSizedImage(data.GetDataStore().GetImage(), (280, 280)))
         return
