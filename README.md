@@ -8,7 +8,20 @@ A simple library management system.
 git clone https://github.com/Xapier14/EasyLibrary.git
 pip install -r requirements.txt
 ```
-### 2. Run the program:
+### 2. Set-up the local datastore:
+```
+./
+┬ ...
+├ main.py
+└ localDb/
+    ├ images/
+    │   └ default.png -> Default book cover
+    ├ globalBooks.json
+    ├ inventory.json
+    ├ transactions.json
+    └ users.json
+```
+### 3. Run the program:
 ```Shell
 python ./main.py
 ```
@@ -17,23 +30,23 @@ python ./main.py
 - [x] User Authentication
 - [ ] Self-Operate Kiosk Mode (User-Level Authorization)
 - [ ] Operated/Attended Mode (Administrator-Level Authorization)
-- [ ] Book Database
+- [x] Book Database
     - [ ] Add
     - [ ] Delete
     - [ ] Edit
-    - [ ] Search
-    - [ ] Book Cover & General Info
+    - [x] Search
+    - [x] Book Cover & General Info
 - [ ] Book Item Inventory Database
     - [ ] Book Location
     - [ ] Duplicate Count
-- [ ] User Database
+- [x] User Database
     - [x] Add
     - [ ] Delete
     - [ ] Edit
     - [ ] Search
-    - [ ] User Types
+    - [x] User Types
         - [ ] Administrator
-        - [ ] User
+        - [x] User
 - [ ] Borrowing System
     - [ ] Borrow
     - [ ] Return
