@@ -63,6 +63,10 @@ class LocalDataStore(DataStoreInterface):
             self.GlobalBooks.append(book)
         f.close()
 
+        # check default book image
+        if not exists("localDb/images/default.png"):
+            raise Exception("Default book image not found!")
+
         return
     
     def SaveData(self):
