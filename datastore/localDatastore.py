@@ -139,6 +139,13 @@ class LocalDataStore(DataStoreInterface):
         else:
             return False
         return True
+
+    def SearchBooks(self, searchString):
+        books = []
+        for book in self.GlobalBooks:
+            if (book.GetTitle().lower().find(searchString.lower())!= -1 or book.GetAuthor().lower().find(searchString.lower())!= -1 or book.GetISBN().lower().replace("-","").find(searchString.lower().replace("-",""))!= -1 or book.GetYear().lower().find(searchString.lower())!= -1 or book.GetGenre().lower().find(searchString.lower())!= -1 or book.GetPublisher().lower().find(searchString.lower())!= -1):
+                books.append(book)
+        return books
     
     def CountBooks(self):
         return len(self.GlobalBooks)
@@ -153,4 +160,6 @@ class LocalDataStore(DataStoreInterface):
                     path = "localDb/images/" + book.GetISBN() + ".png"
                     if exists(path):
                         return path
+                    elif exists("localDb/images/" + book.GetISBN().replace("-", "") + ".png"):
+                        return "localDb/images/" + book.GetISBN().replace("-", "") + ".png"
         return "localDb/images/default.png"

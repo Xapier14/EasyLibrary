@@ -51,14 +51,9 @@ class SearchController(Controller):
         return True
 
     def input_query(self, model):
-        model.books = data.GetDataStore().GetAllBooks()
         model.selectedBook = None
         if (model.query != ""):
-            filteredBooks = []
-            for book in model.books:
-                if (book.GetTitle().lower().find(model.query.lower())!= -1 or book.GetAuthor().lower().find(model.query.lower())!= -1 or book.GetISBN().lower().find(model.query.lower())!= -1 or book.GetYear().lower().find(model.query.lower())!= -1 or book.GetGenre().lower().find(model.query.lower())!= -1 or book.GetPublisher().lower().find(model.query.lower())!= -1):
-                    filteredBooks.append(book)
-            model.books = filteredBooks
+            model.books = data.GetDataStore().SearchBooks(model.query)
         self.ModelUpdated(model)
         return False
 
