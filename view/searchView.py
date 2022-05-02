@@ -35,10 +35,10 @@ class SearchView(ViewInterface):
                         [sg.Text("Location(s): ", size=detailTextSize, justification="right"), sg.Input("", readonly=True, size=detailBoxSize, key="-details-location-", expand_x=True)]]
         imageFrame = [[sg.Image(key="-image-", size=(280, 280))]];
         detailsColumn = [   [sg.Frame("Details", detailsFrame, expand_x=True, element_justification="right")],
-                            [sg.Frame("Book Cover", imageFrame, expand_x=True, expand_y=True, element_justification="center")] ]
+                            [sg.Frame("Book Cover", imageFrame, expand_x=True, expand_y=True, element_justification="center", key="-image-frame-")] ]
         layout = [  [sg.Text("EasyLibrary - Self-Service Mode")],
                     [sg.Text("Search for books")],
-                    [sg.Column(listColumn, expand_y=True, expand_x=True), sg.Column(detailsColumn, expand_y=True, expand_x=True)],
+                    [sg.Column(listColumn, expand_y=True, expand_x=True), sg.Column(detailsColumn, expand_y=True, expand_x=False)],
                     [sg.Text("Search Query: "), sg.Input("", size=(50, 1), key="-input-query-", enable_events=True, expand_x=True), sg.Button("Clear Details", key="-button-clear-", size=buttonSize), sg.Button("Go Back", key="-button-back-", size=buttonSize)] ]
         return layout
     def Update(self, window, model):
