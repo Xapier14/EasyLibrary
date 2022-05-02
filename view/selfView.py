@@ -17,8 +17,9 @@ class SelfView(ViewInterface):
                     sg.Button("View due books", key="-button-due-", size=buttonSize),
                     sg.Button("View past transactions", key="-button-history-", size=buttonSize),
                     sg.Push() ]
+        displayName = model.user.GetUsername() if model.user.GetFullName() == "" else model.user.GetFullName() + f" ({model.user.GetUsername()})"
         layout = [  [sg.Text("EasyLibrary - User View")],
-                    [sg.Text(f"Logged in as {model.user.GetUsername()}.")],
+                    [sg.Text(f"Logged in as {displayName}.")],
                     [sg.VPush()],
                     actions,
                     [sg.Push(), sg.Button("Logout", key="-button-logout-", size=buttonSize), sg.Push()],

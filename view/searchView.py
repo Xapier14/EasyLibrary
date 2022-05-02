@@ -55,13 +55,17 @@ class SearchView(ViewInterface):
 
         # details update
         if model.selectedBook is not None:
+            datastore = data.GetDataStore()
             window["-details-title-"].update(model.selectedBook.GetTitle())
             window["-details-author-"].update(model.selectedBook.GetAuthor())
             window["-details-isbn-"].update(model.selectedBook.GetISBN())
             window["-details-year-"].update(model.selectedBook.GetYear())
             window["-details-genre-"].update(model.selectedBook.GetGenre())
             window["-details-publisher-"].update(model.selectedBook.GetPublisher())
-            window["-image-"].update(data=imageTool.MakeSizedImage(data.GetDataStore().GetImage(model.selectedBook.GetISBN()), (280, 280)))
+            window["-details-inventory-"].update(str(datastore.CountBookItems(model.selectedBook.GetISBN())))
+            window["-details-status-"].update("")
+            window["-details-location-"].update("")
+            window["-image-"].update(data=imageTool.MakeSizedImage(datastore.GetImage(model.selectedBook.GetISBN()), (280, 280)))
         else:
             window["-details-title-"].update("")
             window["-details-author-"].update("")
@@ -69,5 +73,8 @@ class SearchView(ViewInterface):
             window["-details-year-"].update("")
             window["-details-genre-"].update("")
             window["-details-publisher-"].update("")
+            window["-details-inventory-"].update("")
+            window["-details-status-"].update("")
+            window["-details-location-"].update("")
             window["-image-"].update(data=imageTool.MakeSizedImage(data.GetDataStore().GetImage(), (280, 280)))
         return

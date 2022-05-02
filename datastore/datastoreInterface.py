@@ -29,6 +29,9 @@ class DataStoreInterface:
     def GetBookItem(self, isbn):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
+    def GetBookItems(self, isbn):
+        raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
     def AddBookItem(self, book):
         raise NotImplementedError("Subclass must implement abstract method")
 
@@ -48,6 +51,11 @@ class DataStoreInterface:
     
     @abstractmethod
     def SearchBooks(self, searchString):
+        raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
+    def CountBookItems(self, isbn):
+        raise NotImplementedError("Subclass must implement abstract method")
+    def CountInventory(self):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
     def CountBooks(self):

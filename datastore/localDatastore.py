@@ -8,6 +8,7 @@ from os.path import exists
 # datamodels
 from datamodel.user import User
 from datamodel.book import Book
+from datamodel.bookItem import BookItem
 
 # datastore interface
 from datastore.datastoreInterface import DataStoreInterface
@@ -63,6 +64,13 @@ class LocalDataStore(DataStoreInterface):
             self.GlobalBooks.append(book)
         f.close()
 
+        # load Local/Inventory Book Data
+        f = open("localDb/inventory.json", "r")
+        localBooks = json.load(f)
+        for bookItem in localBooks:
+            book = BookItem(int(bookItem["item-code"]), bookItem["isbn"], bookItem["date-added"], bookItem["location"])
+            self.LocalBooks.append(book)
+
         # check default book image
         if not exists("localDb/images/default.png"):
             raise Exception("Default book image not found!")
@@ -112,6 +120,23 @@ class LocalDataStore(DataStoreInterface):
         f.close()
         LocalDataStore.Prettify("localDb/globalBooks.json")
 
+        # write local/inventory book data
+        f = open("localDb/inventory.json", "w")
+        f.write("[")
+        for book in self.LocalBooks:
+            f.write("{")
+            f.write("\"isbn\": \"" + book.GetISBN() + "\",")
+            f.write("\"item-code\": " + str(book.GetItemCode()) + ",")
+            f.write("\"date-added\": \"" + book.GetDateAdded() + "\",")
+            f.write("\"location\": \"" + book.GetLocation() + "\"")
+            if book == self.LocalBooks[-1]:
+                f.write("}")
+            else:
+                f.write("},")
+        f.write("]")
+        f.close()
+        LocalDataStore.Prettify("localDb/inventory.json")
+
         return
     
     def GetUser(self, username):
@@ -140,12 +165,42 @@ class LocalDataStore(DataStoreInterface):
             return False
         return True
 
+    def GetBookItem(self, isbn):
+        for book in self.LocalBooks:
+            if book.GetISBN().replace("-", "") == isbn.replace("-", ""):
+                return book
+        return None
+
+    def GetBookItems(self, isbn):
+        items = []
+        for book in self.LocalBooks:
+            if book.GetISBN().replace("-", "") == isbn.replace("-", ""):
+                items.append(book)
+        return items
+
+    def AddBookItem(self, book):
+        if (self.GetBookItem(book.GetISBN()) == None):
+            self.LocalBooks.append(book)
+        else:
+            return False
+        return True
+
     def SearchBooks(self, searchString):
         books = []
         for book in self.GlobalBooks:
             if (book.GetTitle().lower().find(searchString.lower())!= -1 or book.GetAuthor().lower().find(searchString.lower())!= -1 or book.GetISBN().lower().replace("-","").find(searchString.lower().replace("-",""))!= -1 or book.GetYear().lower().find(searchString.lower())!= -1 or book.GetGenre().lower().find(searchString.lower())!= -1 or book.GetPublisher().lower().find(searchString.lower())!= -1):
                 books.append(book)
         return books
+    
+    def CountBookItems(self, isbn):
+        count = 0
+        for book in self.LocalBooks:
+            if book.GetISBN().replace("-", "") == isbn.replace("-", ""):
+                count += 1
+        return count
+
+    def CountInventory(self):
+        return len(self.LocalBooks)
     
     def CountBooks(self):
         return len(self.GlobalBooks)
