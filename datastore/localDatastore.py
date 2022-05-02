@@ -129,7 +129,7 @@ class LocalDataStore(DataStoreInterface):
     
     def GetBook(self, isbn):
         for book in self.GlobalBooks:
-            if book.GetISBN() == isbn:
+            if book.GetISBN().replace("-", "") == isbn.replace("-", ""):
                 return book
         return None
     
