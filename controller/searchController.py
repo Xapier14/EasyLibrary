@@ -35,6 +35,7 @@ class SearchController(Controller):
         return False
         
     def Init(self, model):
+        model.coverImage = data.GetDataStore().GetImage()
         self.ModelUpdated(model)
         return
     
@@ -60,7 +61,13 @@ class SearchController(Controller):
     def table_update(self, row, model):
         if len(model.books) > row:
             model.selectedBook = model.books[row]
+            model.localCount = data.GetDataStore().CountBookItems(model.selectedBook.GetISBN())
+            model.locations = data.GetDataStore().GetLocations(model.selectedBook.GetISBN())
+            model.coverImage = data.GetDataStore().GetImage(model.selectedBook.GetISBN())
         else:
             model.selectedBook = None
+            model.localCount = 0
+            model.locations = []
+            model.coverImage = data.GetDataStore().GetImage()
         self.ModelUpdated(model)
         return False

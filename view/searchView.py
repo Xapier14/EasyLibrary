@@ -1,5 +1,4 @@
 import PySimpleGUI as sg
-import data
 import imageTool
 from view.viewInterface import ViewInterface
 
@@ -55,17 +54,19 @@ class SearchView(ViewInterface):
 
         # details update
         if model.selectedBook is not None:
-            datastore = data.GetDataStore()
+            bookLocations = list(dict.fromkeys(model.locations))
+            locationString = ""
+            for location in bookLocations:
+                locationString = locationString + (location + "; ")
             window["-details-title-"].update(model.selectedBook.GetTitle())
             window["-details-author-"].update(model.selectedBook.GetAuthor())
             window["-details-isbn-"].update(model.selectedBook.GetISBN())
             window["-details-year-"].update(model.selectedBook.GetYear())
             window["-details-genre-"].update(model.selectedBook.GetGenre())
             window["-details-publisher-"].update(model.selectedBook.GetPublisher())
-            window["-details-inventory-"].update(str(datastore.CountBookItems(model.selectedBook.GetISBN())))
-            window["-details-status-"].update("")
-            window["-details-location-"].update("")
-            window["-image-"].update(data=imageTool.MakeSizedImage(datastore.GetImage(model.selectedBook.GetISBN()), (280, 280)))
+            window["-details-inventory-"].update(str(model.localCount))
+            window["-details-status-"].update(f"{len(model.locations)} available" if len(model.locations) > 0 else "No copies available")
+            window["-details-location-"].update(locationString)
         else:
             window["-details-title-"].update("")
             window["-details-author-"].update("")
@@ -76,5 +77,8 @@ class SearchView(ViewInterface):
             window["-details-inventory-"].update("")
             window["-details-status-"].update("")
             window["-details-location-"].update("")
-            window["-image-"].update(data=imageTool.MakeSizedImage(data.GetDataStore().GetImage(), (280, 280)))
+
+        # update book cover
+        if model.coverImage != "":
+            window["-image-"].update(data=imageTool.MakeSizedImage(model.coverImage, (280, 280)))
         return
