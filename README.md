@@ -29,7 +29,7 @@ python ./main.py
 
 ## Features
 - [x] User Authentication
-- [ ] Self-Operate Kiosk Mode (User-Level Authorization)
+- [x] Self-Operate Kiosk Mode (User-Level Authorization)
 - [ ] Operated/Attended Mode (Administrator-Level Authorization)
 - [x] Book Database
     - [ ] Add
@@ -37,8 +37,8 @@ python ./main.py
     - [ ] Edit
     - [x] Search
     - [x] Book Cover & General Info
-- [ ] Book Item Inventory Database
-    - [ ] Book Location
+- [x] Book Item Inventory Database
+    - [x] Book Location
     - [ ] Duplicate Count
 - [x] User Database
     - [x] Add
@@ -48,8 +48,8 @@ python ./main.py
     - [x] User Types
         - [ ] Administrator
         - [x] User
-- [ ] Borrowing System
-    - [ ] Borrow
+- [x] Borrowing System
+    - [x Borrow
     - [ ] Return
 
 ## Dependencies
