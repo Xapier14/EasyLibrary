@@ -49,7 +49,7 @@ python ./main.py
         - [ ] Administrator
         - [x] User
 - [x] Borrowing System
-    - [x Borrow
+    - [x] Borrow
     - [ ] Return
 
 ## Dependencies
