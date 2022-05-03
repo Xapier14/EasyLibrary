@@ -26,7 +26,7 @@ class DataStoreInterface:
         raise NotImplementedError("Subclass must implement abstract method")
 
     @abstractmethod
-    def GetBookItem(self, isbn):
+    def GetBookItem(self, itemCode):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
     def GetBookItems(self, isbn):
@@ -36,25 +36,25 @@ class DataStoreInterface:
         raise NotImplementedError("Subclass must implement abstract method")
 
     @abstractmethod
-    def GetTransactionBorrow(self, id):
+    def GetTransaction(self, transactionId):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
-    def AddTransactionBorrow(self, transaction):
-        raise NotImplementedError("Subclass must implement abstract method")
-
-    @abstractmethod
-    def GetTransactionReturn(self, id):
-        raise NotImplementedError("Subclass must implement abstract method")
-    @abstractmethod
-    def AddTransactionReturn(self, transaction):
+    def AddTransaction(self, transaction):
         raise NotImplementedError("Subclass must implement abstract method")
     
     @abstractmethod
     def SearchBooks(self, searchString):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
+    def GetLocations(self, isbn):
+        raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
+    def GetNewTransactionId(self):
+        raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
     def CountBookItems(self, isbn):
         raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
     def CountInventory(self):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod

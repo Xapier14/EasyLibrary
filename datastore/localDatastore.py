@@ -3,6 +3,8 @@
 
 import json
 import base64
+from datamodel.transaction import Transaction
+import dateTool
 from os.path import exists
 
 # datamodels
@@ -36,10 +38,8 @@ class LocalDataStore(DataStoreInterface):
         self.GlobalBooks = []
         # Local Book Data / Inventory-Stock
         self.LocalBooks = []
-        # Transactions (Borrows)
-        self.Borrows = []
-        # Transactions (Returns)
-        self.Returned = []
+        # Transactions
+        self.Transactions = []
 
         # load User Data
         f = open("localDb/users.json", "r")
@@ -68,8 +68,15 @@ class LocalDataStore(DataStoreInterface):
         f = open("localDb/inventory.json", "r")
         localBooks = json.load(f)
         for bookItem in localBooks:
-            book = BookItem(int(bookItem["item-code"]), bookItem["isbn"], bookItem["date-added"], bookItem["location"])
+            book = BookItem(int(bookItem["item-code"]), bookItem["isbn"], dateTool.StringToDateTime(bookItem["date-added"]), bookItem["location"], bookItem["borrowed"], bookItem["borrower"], bookItem["last-transaction"])
             self.LocalBooks.append(book)
+
+        # load Transactions
+        f = open("localDb/transactions.json", "r")
+        transactions = json.load(f)
+        for transactionItem in transactions:
+            transaction = Transaction(transactionItem["transaction-id"], dateTool.StringToDateTime(transactionItem["borrowed-on"]), transactionItem["borrow-duration"], transactionItem["item-code"], transactionItem["borrower-username"], transactionItem["returned"] == "true", dateTool.StringToDateTime(transactionItem["returned-on"]))
+            self.Transactions.append(transaction)
 
         # check default book image
         if not exists("localDb/images/default.png"):
@@ -127,8 +134,11 @@ class LocalDataStore(DataStoreInterface):
             f.write("{")
             f.write("\"isbn\": \"" + book.GetISBN() + "\",")
             f.write("\"item-code\": " + str(book.GetItemCode()) + ",")
-            f.write("\"date-added\": \"" + book.GetDateAdded() + "\",")
-            f.write("\"location\": \"" + book.GetLocation() + "\"")
+            f.write("\"date-added\": \"" + dateTool.DateTimeToString(book.GetDateAdded()) + "\",")
+            f.write("\"location\": \"" + book.GetLocation() + "\",")
+            f.write("\"borrowed\": " + str(book.GetBorrowed()).lower() + ",")
+            f.write("\"borrower\": \"" + book.GetBorrower() + "\",")
+            f.write("\"last-transaction\": " + (str(book.GetLastTransaction()) if book.GetLastTransaction() is not None else "null") + "")
             if book == self.LocalBooks[-1]:
                 f.write("}")
             else:
@@ -137,6 +147,25 @@ class LocalDataStore(DataStoreInterface):
         f.close()
         LocalDataStore.Prettify("localDb/inventory.json")
 
+        # write transaction data
+        f = open("localDb/transactions.json", "w")
+        f.write("[")
+        for transaction in self.Transactions:
+            f.write("{")
+            f.write("\"transaction-id\": " + str(transaction.GetID()) + ",")
+            f.write("\"borrowed-on\": \"" + dateTool.DateTimeToString(transaction.GetBorrowedOn()) + "\",")
+            f.write("\"borrow-duration\": " + str(transaction.GetBorrowDuration()) + ",")
+            f.write("\"item-code\": " + str(transaction.GetItemCode()) + ",")
+            f.write("\"borrower-username\": \"" + transaction.GetBorrower() + "\",")
+            f.write("\"returned\": " + ("true" if transaction.GetReturned() else "false") + ",")
+            f.write("\"returned-on\": " + (f"{dateTool.DateTimeToString(transaction.GetReturnedOn())}" if dateTool.DateTimeToString(transaction.GetReturnedOn()) != None else "null"))
+            if transaction == self.Transactions[-1]:
+                f.write("}")
+            else:
+                f.write("},")
+        f.write("]")
+        f.close()
+        LocalDataStore.Prettify("localDb/transactions.json")
         return
     
     def GetUser(self, username):
@@ -165,9 +194,9 @@ class LocalDataStore(DataStoreInterface):
             return False
         return True
 
-    def GetBookItem(self, isbn):
+    def GetBookItem(self, itemCode):
         for book in self.LocalBooks:
-            if book.GetISBN().replace("-", "") == isbn.replace("-", ""):
+            if book.GetItemCode() == itemCode:
                 return book
         return None
 
@@ -185,12 +214,35 @@ class LocalDataStore(DataStoreInterface):
             return False
         return True
 
+    def GetTransaction(self, transactionID):
+        for transaction in self.Transactions:
+            if transaction.GetID() == transactionID:
+                return transaction
+        return None
+
+    def AddTransaction(self, transaction):
+        if (self.GetTransaction(transaction.GetID()) == None):
+            self.Transactions.append(transaction)
+        else:
+            return False
+        return True
+
     def SearchBooks(self, searchString):
         books = []
         for book in self.GlobalBooks:
             if (book.GetTitle().lower().find(searchString.lower())!= -1 or book.GetAuthor().lower().find(searchString.lower())!= -1 or book.GetISBN().lower().replace("-","").find(searchString.lower().replace("-",""))!= -1 or book.GetYear().lower().find(searchString.lower())!= -1 or book.GetGenre().lower().find(searchString.lower())!= -1 or book.GetPublisher().lower().find(searchString.lower())!= -1):
                 books.append(book)
         return books
+
+    def GetLocations(self, isbn):
+        locations = []
+        for book in self.LocalBooks:
+            if book.GetISBN().replace("-", "") == isbn.replace("-", "") and not book.GetBorrowed():
+                locations.append(book.GetLocation())
+        return locations
+    
+    def GetNewTransactionId(self):
+        return len(self.Transactions) + 1
     
     def CountBookItems(self, isbn):
         count = 0
