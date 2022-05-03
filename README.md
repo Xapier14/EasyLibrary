@@ -22,6 +22,11 @@ pip install -r requirements.txt
     ├ transactions.json
     └ users.json
 ```
+The default admin account is:
+```
+Username: "admin"
+Password: "12345678"
+```
 ### 3. Run the program:
 ```Shell
 python ./main.py
