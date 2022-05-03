@@ -44,7 +44,7 @@ class SelfController(Controller):
         return True
 
     def button_borrow(self, model):
-        
+        app.PushPairToStack(make.MakeBorrowService(model.user))
         return True
 
     def button_return(self, model):
