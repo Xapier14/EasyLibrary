@@ -22,7 +22,11 @@ pip install -r requirements.txt
     ├ transactions.json
     └ users.json
 ```
-The default admin account is:
+***Important:*** The contents of each new JSON file should be:
+```
+[]
+```
+***Note:*** The default admin account generated on an empty user list is:
 ```
 Username: "admin"
 Password: "12345678"
