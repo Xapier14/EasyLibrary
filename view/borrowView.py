@@ -61,6 +61,7 @@ class BorrowView(ViewInterface):
             window["-details-itemcode-"].update("")
             window["-details-dateadded-"].update("")
             window["-details-location-"].update("")
+            window["-details-status-"].update("")
         
         # change book cover
         if (model.coverImage != ""):
