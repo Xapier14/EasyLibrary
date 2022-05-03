@@ -21,6 +21,12 @@ from enums import UserEnum
 class LocalDataStore(DataStoreInterface):
     def __init__(self):
         self.ReloadData()
+        if (len(self.Users) == 0):
+            adminUser = User("admin", UserEnum.Admin)
+            adminUser.SetPassword("12345678")
+            self.AddUser(adminUser)
+            self.SaveData()
+
         return
 
     def Prettify(jsonFile):
