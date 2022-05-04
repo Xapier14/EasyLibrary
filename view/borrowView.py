@@ -65,6 +65,5 @@ class BorrowView(ViewInterface):
         
         # change book cover
         if (model.coverImage != ""):
-            print("cover image: " + model.coverImage)
             window["-image-cover-"].update(data=imageTool.MakeSizedImage(model.coverImage, (400, 400)))
         return
