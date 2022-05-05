@@ -164,7 +164,7 @@ class LocalDataStore(DataStoreInterface):
             f.write("\"item-code\": " + str(transaction.GetItemCode()) + ",")
             f.write("\"borrower-username\": \"" + transaction.GetBorrower() + "\",")
             f.write("\"returned\": " + ("true" if transaction.GetReturned() else "false") + ",")
-            f.write("\"returned-on\": " + (f"{dateTool.DateTimeToString(transaction.GetReturnedOn())}" if dateTool.DateTimeToString(transaction.GetReturnedOn()) != None else "null"))
+            f.write("\"returned-on\": " + (f"\"{dateTool.DateTimeToString(transaction.GetReturnedOn())}\"" if dateTool.DateTimeToString(transaction.GetReturnedOn()) != None else "null"))
             if transaction == self.Transactions[-1]:
                 f.write("}")
             else:
