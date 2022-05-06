@@ -14,6 +14,9 @@ class [YOUR]Controller(Controller):
                     return True
         return False
 
+    def Init(self, model):
+        return
+
     def WinClose(self):
         return True
     
