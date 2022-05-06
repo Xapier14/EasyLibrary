@@ -48,7 +48,7 @@ class SelfController(Controller):
         return True
 
     def button_return(self, model):
-        
+        app.PushPairToStack(make.MakeReturnService(model.user))
         return True
 
     def button_due(self, model):
