@@ -81,7 +81,7 @@ class LocalDataStore(DataStoreInterface):
         f = open("localDb/transactions.json", "r")
         transactions = json.load(f)
         for transactionItem in transactions:
-            transaction = Transaction(transactionItem["transaction-id"], dateTool.StringToDateTime(transactionItem["borrowed-on"]), transactionItem["borrow-duration"], transactionItem["item-code"], transactionItem["borrower-username"], transactionItem["returned"] == "true", dateTool.StringToDateTime(transactionItem["returned-on"]))
+            transaction = Transaction(transactionItem["transaction-id"], dateTool.StringToDateTime(transactionItem["borrowed-on"]), transactionItem["borrow-duration"], transactionItem["item-code"], transactionItem["borrower-username"], transactionItem["returned"], dateTool.StringToDateTime(transactionItem["returned-on"]))
             self.Transactions.append(transaction)
 
         # check default book image
@@ -225,6 +225,16 @@ class LocalDataStore(DataStoreInterface):
             if transaction.GetID() == transactionID:
                 return transaction
         return None
+
+    def GetTransactions(self, username, onlyActive = False):
+        transactions = []
+        for transaction in self.Transactions:
+            if transaction.GetBorrower() == username:
+                print(f"Returned? {transaction.GetReturned()}")
+                if onlyActive and transaction.GetReturned():
+                    continue
+                transactions.append(transaction)
+        return transactions
 
     def AddTransaction(self, transaction):
         if (self.GetTransaction(transaction.GetID()) == None):
