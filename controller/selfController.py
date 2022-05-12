@@ -22,9 +22,6 @@ class SelfController(Controller):
             case "-button-return-":
                 if (self.button_return(model)):
                     return True
-            case "-button-due-":
-                if (self.button_due(model)):
-                    return True
             case "-button-history-":
                 if (self.button_history(model)):
                     return True
@@ -49,10 +46,6 @@ class SelfController(Controller):
 
     def button_return(self, model):
         app.PushPairToStack(make.MakeReturnService(model.user))
-        return True
-
-    def button_due(self, model):
-        
         return True
 
     def button_history(self, model):
