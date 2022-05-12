@@ -25,7 +25,9 @@ class BorrowView(ViewInterface):
                             [sg.Text("Location: ", size=detailLabelSize, justification="right"), sg.InputText("", readonly=True, key="-details-location-", expand_x=True)],
                             [sg.Text("Status: ", size=detailLabelSize, justification="right"), sg.InputText("", readonly=True, key="-details-status-", expand_x=True)]
                         ]
-        bookCoverFrame = [    [sg.Image(size=(400, 400), key="-image-cover-")]    ]
+        bookCoverFrame = [    [sg.VPush()],
+            [sg.Push(), sg.Image(size=(512, 512), key="-image-cover-"), sg.Push()],
+            [sg.VPush()]    ]
         actionsFrame = [    [sg.Button("Borrow", key="-button-borrow-", size=buttonSize)]   ]
         leftColumn = [  [sg.Frame("Specify Book Item", inputFrame, expand_x=True)],
                         [sg.Frame("Book Details", detailsFrame, expand_x=True, expand_y=True, element_justification="right")]]
@@ -65,5 +67,5 @@ class BorrowView(ViewInterface):
         
         # change book cover
         if (model.coverImage != ""):
-            window["-image-cover-"].update(data=imageTool.MakeSizedImage(model.coverImage, (400, 400)))
+            window["-image-cover-"].update(data=imageTool.MakeSizedImage(model.coverImage, (512, 512)))
         return
