@@ -1,5 +1,6 @@
 # App Module
 #   Handles the general flow of the application
+#   Using a pseudo-MVC pattern.
 
 controllerStack = []
 
