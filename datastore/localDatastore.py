@@ -230,7 +230,6 @@ class LocalDataStore(DataStoreInterface):
         transactions = []
         for transaction in self.Transactions:
             if transaction.GetBorrower() == username:
-                print(f"Returned? {transaction.GetReturned()}")
                 if onlyActive and transaction.GetReturned():
                     continue
                 transactions.append(transaction)
