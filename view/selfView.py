@@ -14,7 +14,6 @@ class SelfView(ViewInterface):
                     sg.Button("Search for a book", key="-button-search-", size=buttonSize),
                     sg.Button("Borrow a book", key="-button-borrow-", size=buttonSize),
                     sg.Button("Return a book", key="-button-return-", size=buttonSize),
-                    sg.Button("View due books", key="-button-due-", size=buttonSize),
                     sg.Button("View past transactions", key="-button-history-", size=buttonSize),
                     sg.Push() ]
         displayName = model.user.GetUsername() if model.user.GetFullName() == "" else model.user.GetFullName() + f" ({model.user.GetUsername()})"
