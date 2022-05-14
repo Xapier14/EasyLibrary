@@ -36,6 +36,6 @@ class BookItem:
     def SetLastTransaction(self, lastTransaction):
         self.__lastTransaction = lastTransaction
     def __str__(self):
-        return "Item Code: " + self.__itemCode + "\nISBN: " + self.__isbn + "\nDate Added: " + self.__dateAdded
+        return f"Item Code: {self.__itemCode}, ISBN: {self.__isbn}, Date Added: {self.__dateAdded}"
     def __repr__(self):
-        return "Item Code: " + self.__itemCode + "\nISBN: " + self.__isbn + "\nDate Added: " + self.__dateAdded
+        return f"Item Code: {self.__itemCode}, ISBN: {self.__isbn}, Date Added: {self.__dateAdded}"

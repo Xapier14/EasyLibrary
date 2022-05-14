@@ -30,3 +30,5 @@ class Book():
         self.__year = year
     def SetGenre(self, genre):
         self.__genre = genre
+    def __str__(self) -> str:
+        return f"{self.__title} by {self.__author}"
