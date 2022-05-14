@@ -29,13 +29,6 @@ class ReturnController(Controller):
         return False
 
     def Init(self, model):
-        datastore = data.GetDataStore()
-        model.transactions = datastore.GetTransactions(model.user.GetUsername(), True)
-        model.globalBooks = datastore.GetAllBooks()
-        for transaction in model.transactions:
-            model.localBooks.append(datastore.GetBookItem(transaction.GetItemCode()))
-        model.coverImage = imageTool.MakeSizedImage(datastore.GetImage(), (320, 320))
-        self.ModelUpdated(model)
         return
 
     def WinClose(self):
