@@ -22,7 +22,7 @@ class TransactionsView(ViewInterface):
                         break
 
                 for book in model.globalBooks:
-                    if transaction.GetItemCode() == localBook.GetItemCode():
+                    if localBook.GetISBN() == book.GetISBN():
                         globalBook = book
                         break
 
@@ -30,7 +30,7 @@ class TransactionsView(ViewInterface):
         else:
             items.append(["No Transactions Found"])
         headings = ["Item Code", "Book Title", "Book Author", "Borrowed On", "Borrow Duration", "Returned On"]
-        frame = [ [sg.Table(items, headings=headings, expand_x=True, expand_y=True)] ]
+        frame = [ [sg.Table(items, headings=headings, expand_x=True, expand_y=True, justification="left")] ]
         layout = [ [sg.Frame("Past Transactions", frame, expand_x=True, expand_y=True)],
                    [sg.Push(), sg.Button("Go Back", key="-button-back-", size=(18, 4))] ]
         return layout
