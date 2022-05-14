@@ -3,6 +3,7 @@ import PySimpleGUI as sg
 import app
 import data
 import imageTool
+import dateTool
 from controller.baseController import Controller
 
 class ReturnController(Controller):
@@ -43,7 +44,23 @@ class ReturnController(Controller):
 
     def button_return(self, model, transactionId):
         datastore = data.GetDataStore()
-        transaction = datastore.GetTransaction(transactionId)
+        transaction = datastore.GetTransaction(int(transactionId))
+        bookItem = datastore.GetBookItem(transaction.GetItemCode())
+        borrowDuration = transaction.GetBorrowDuration()
+        borrowedOn = transaction.GetBorrowedOn()
+        if (dateTool.GetDaysBetween(borrowedOn, dateTool.GetToday()) > borrowDuration):
+            sg.Popup("You have exceeded the borrow duration. Please return the book to a library attendant.")
+            return False
+        transaction.SetReturnedOn(dateTool.GetToday())
+        transaction.SetReturned(True)
+        bookItem.SetBorrowed(False)
+        bookItem.SetBorrower("")
+        datastore.SaveData()
+        model.transactions = datastore.GetTransactions(model.user.GetUsername(), True)
+        model.coverImage = imageTool.MakeSizedImage(datastore.GetImage(), (320, 320))
+        model.selectedTransaction = None
+        sg.popup("Book returned successfully.")
+        self.ModelUpdated(model)
         return False
     
     def table_update(self, row, model):

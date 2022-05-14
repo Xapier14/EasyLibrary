@@ -56,7 +56,8 @@ def MakeReturnService(user):
     returnModel.transactions = datastore.GetTransactions(returnModel.user.GetUsername(), True)
     returnModel.globalBooks = datastore.GetAllBooks()
     for transaction in returnModel.transactions:
-        returnModel.localBooks.append(datastore.GetBookItem(transaction.GetItemCode()))
+        bookItem = datastore.GetBookItem(transaction.GetItemCode())
+        returnModel.localBooks.append(bookItem)
     returnModel.coverImage = imageTool.MakeSizedImage(datastore.GetImage(), (320, 320))
     returnView = ReturnView()
     returnController = ReturnController(returnView)

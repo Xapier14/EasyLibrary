@@ -1,6 +1,10 @@
 import datetime
+from datetime import date
 from datetime import datetime
-
+def GetToday():
+    return datetime.now()
+def GetDaysBetween(dateTime1, dateTime2):
+    return (dateTime2.date() - dateTime1.date()).days
 def DateTimeToString(dateTime):
     if dateTime == None:
         return None

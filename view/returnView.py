@@ -27,7 +27,7 @@ class ReturnView(ViewInterface):
                         break
 
                 for book in model.globalBooks:
-                    if transaction.GetItemCode() == localBook.GetItemCode():
+                    if localBook.GetISBN() == book.GetISBN():
                         globalBook = book
                         break
 
@@ -102,7 +102,7 @@ class ReturnView(ViewInterface):
                         break
 
                 for book in model.globalBooks:
-                    if transaction.GetItemCode() == localBook.GetItemCode():
+                    if localBook.GetISBN() == book.GetISBN():
                         globalBook = book
                         break
 
