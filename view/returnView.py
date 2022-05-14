@@ -65,9 +65,9 @@ class ReturnView(ViewInterface):
                     break
 
             for book in model.globalBooks:
-                if model.selectedTransaction.GetItemCode() == localBook.GetItemCode():
-                    globalBook = book
-                    break
+                    if localBook.GetISBN() == book.GetISBN():
+                        globalBook = book
+                        break
 
             window["-transaction-id-"].update(str(model.selectedTransaction.GetID()))
             window["-item-code-"].update(str(model.selectedTransaction.GetItemCode()))
