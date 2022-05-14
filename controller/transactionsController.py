@@ -21,7 +21,7 @@ class TransactionsController(Controller):
         return
 
     def WinClose(self):
-        return True
+        return False
     
     def Update(self, model):
         return
