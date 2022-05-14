@@ -1,4 +1,4 @@
-# Controller for 
+# Controller for Self-Service Transactions
 import PySimpleGUI as sg
 import app
 from controller.baseController import Controller
