@@ -21,6 +21,9 @@ class LoginController(Controller):
             case sg.WIN_X_EVENT:
                 if (self.WinClose()):
                     return True
+            case "-button-create-":
+                if (self.button_create(model)):
+                    return True
             case "-button-self-":
                 if (self.button_self_login(model)):
                     return True
@@ -47,6 +50,10 @@ class LoginController(Controller):
     def link_projectOpen(self, model):
         webbrowser.open("https://www.github.com/xapier14/EasyLibrary")
         return False
+
+    def button_create(self, model):
+        app.PushPairToStack(make.MakeCreateAccountService())
+        return True
 
     def button_self_login(self, model):
         datastore = data.GetDataStore()

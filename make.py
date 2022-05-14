@@ -8,6 +8,7 @@ from model.selfModel import SelfModel
 from model.borrowModel import BorrowModel
 from model.returnModel import ReturnModel
 from model.transactionsModel import TransactionsModel
+from model.accountModel import AccountModel
 # views
 from view.loginView import LoginView
 from view.searchView import SearchView
@@ -15,6 +16,7 @@ from view.selfView import SelfView
 from view.borrowView import BorrowView
 from view.returnView import ReturnView
 from view.transactionsView import TransactionsView
+from view.accountView import AccountView
 # controllers
 from controller.loginController import LoginController
 from controller.searchController import SearchController
@@ -22,7 +24,7 @@ from controller.selfController import SelfController
 from controller.borrowController import BorrowController
 from controller.returnController import ReturnController
 from controller.transactionsController import TransactionsController
-
+from controller.accountController import AccountController
 
 def MakeLogin(datastore):
     loginModel = LoginModel(datastore)
@@ -73,3 +75,9 @@ def MakeTransactionsService(user):
     transactionsView = TransactionsView()
     transactionsController = TransactionsController(transactionsView)
     return transactionsController, transactionsModel
+
+def MakeCreateAccountService():
+    accountModel = AccountModel()
+    accountView = AccountView()
+    accountController = AccountController(accountView)
+    return accountController, accountModel
