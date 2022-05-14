@@ -49,7 +49,7 @@ class SelfController(Controller):
         return True
 
     def button_history(self, model):
-        
+        app.PushPairToStack(make.MakeTransactionsService(model.user))
         return True
 
     def button_logout(self, model):
