@@ -59,7 +59,7 @@ python ./main.py
         - [x] User
 - [x] Borrowing System
     - [x] Borrow
-    - [ ] Return
+    - [x] Return
 
 ## Dependencies
 - PySimpleGUI
