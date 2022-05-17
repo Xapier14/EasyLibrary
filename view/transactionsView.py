@@ -28,7 +28,7 @@ class TransactionsView(ViewInterface):
 
                 items.append([str(transaction.GetItemCode()), globalBook.GetTitle(), globalBook.GetAuthor(), dateTool.DateTimeToString(transaction.GetBorrowedOn()), f"{transaction.GetBorrowDuration()} days", "Not Returned" if (transaction.GetReturnedOn() is None) else dateTool.DateTimeToString(transaction.GetReturnedOn())])
         else:
-            items.append(["No Transactions Found"])
+            items.append(["No transactions found."])
         headings = ["Item Code", "Book Title", "Book Author", "Borrowed On", "Borrow Duration", "Returned On"]
         frame = [ [sg.Table(items, headings=headings, expand_x=True, expand_y=True, justification="left")] ]
         layout = [ [sg.Frame("Past Transactions", frame, expand_x=True, expand_y=True)],
