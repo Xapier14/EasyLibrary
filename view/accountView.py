@@ -5,7 +5,7 @@ class AccountView(ViewInterface):
     def __init__(self):
         self.windowWidth = 600
         self.windowHeight = 240
-        self.windowTitle = "EasyLibrary - Create New User Account"
+        self.windowTitle = "Create New User Account - EasyLibrary"
         self.startMaximized = False
         return
     def ConstructLayout(self, model):
