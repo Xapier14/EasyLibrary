@@ -34,3 +34,11 @@ class User():
         self.__salt = bcrypt.gensalt()
         self.__hashedPassword = bcrypt.hashpw(password.encode("utf-8"), self.__salt)
         return
+
+    def SetFullName(self, fullName):
+        self.__fullName = fullName
+        return
+    
+    def SetAccessLevel(self, level):
+        self.__accessLevel = level
+        return
