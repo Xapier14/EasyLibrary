@@ -39,27 +39,32 @@ python ./main.py
 ## Features
 - [x] User Authentication
 - [x] Self-Operate Kiosk Mode (User-Level Authorization)
-- [ ] Operated/Attended Mode (Administrator-Level Authorization)
+- [x] Operated/Attended Mode (Administrator-Level Authorization)
 - [x] Book Database
-    - [ ] Add
-    - [ ] Delete
-    - [ ] Edit
+    - [x] Add
+    - [ ] Delete (Probably will not be added without related transaction check & deletion)
+    - [x] Edit
     - [x] Search
     - [x] Book Cover & General Info
 - [x] Book Item Inventory Database
     - [x] Book Location
-    - [ ] Duplicate Count
+    - [x] Duplicate Count
 - [x] User Database
     - [x] Add
-    - [ ] Delete
-    - [ ] Edit
-    - [ ] Search
+    - [x] Delete
+    - [x] Edit
+    - [x] Search
     - [x] User Types
-        - [ ] Administrator
+        - [x] Administrator
         - [x] User
 - [x] Borrowing System
     - [x] Borrow
     - [x] Return
+
+## Further Improvements
+- Datamodels should only have getters and the models themselves should be cached.
+- Datastores should have setter methods for the datamodels and shall keep a cache of the datamodels to keep transactions fast and tiny.
+    - This should allow for concurrent datastore types (SQL, NoSQL, HTTP, TCP/UDP, WebSockets, CosmosDB)
 
 ## Dependencies
 - PySimpleGUI
