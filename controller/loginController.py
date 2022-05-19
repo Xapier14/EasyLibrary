@@ -7,6 +7,8 @@ import app
 import make
 import data
 
+from enums import UserEnum
+
 from controller.baseController import Controller
 
 class LoginController(Controller):
@@ -47,6 +49,24 @@ class LoginController(Controller):
         app.PopControllerFromStack()
         return True
 
+    def CheckCredentials(self, model):
+        datastore = data.GetDataStore()
+
+        user = datastore.GetUser(model.username)
+        if (user == None):
+            model.username = ""
+            model.password = ""
+            self.ModelUpdated(model)
+            sg.Popup("Invalid username or password")
+            return None
+        if (not user.TestPassword(model.password)):
+            model.username = ""
+            model.password = ""
+            self.ModelUpdated(model)
+            sg.Popup("Invalid username or password")
+            return None
+        return user
+
     def link_projectOpen(self, model):
         webbrowser.open("https://www.github.com/xapier14/EasyLibrary")
         return False
@@ -56,20 +76,8 @@ class LoginController(Controller):
         return True
 
     def button_self_login(self, model):
-        datastore = data.GetDataStore()
-
-        user = datastore.GetUser(model.username)
-        if (user == None):
-            model.username = ""
-            model.password = ""
-            self.ModelUpdated(model)
-            sg.Popup("Invalid username or password")
-            return False
-        if (not user.TestPassword(model.password)):
-            model.username = ""
-            model.password = ""
-            self.ModelUpdated(model)
-            sg.Popup("Invalid username or password")
+        user = self.CheckCredentials(model)
+        if user == None:
             return False
         app.PushPairToStack(make.MakeSelfService(user))
         model.username = ""
@@ -78,5 +86,14 @@ class LoginController(Controller):
         return True
 
     def button_admin_login(self, model):
-        sg.popup("Not implemented yet.")
-        return False
+        user = self.CheckCredentials(model)
+        if user == None:
+            return False
+        model.username = ""
+        model.password = ""
+        self.ModelUpdated(model)
+        if user.GetAccessLevel() != UserEnum.Admin:
+            sg.Popup("You do not have admin access.")
+            return False
+        app.PushPairToStack(make.MakeAdminService(user))
+        return True
