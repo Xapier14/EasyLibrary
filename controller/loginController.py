@@ -42,7 +42,7 @@ class LoginController(Controller):
         return False
     
     def Update(self, model):
-        self.window["-time-"].update("The time is: " + str(datetime.datetime.now()))
+        self.window["-time-"].update("Today is currently: " + str(datetime.datetime.now().strftime("%B %d, %Y - %H:%M (%I:%M %p)")))
         return
 
     def WinClose(self):
