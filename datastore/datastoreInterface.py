@@ -29,7 +29,7 @@ class DataStoreInterface:
     def GetBookItem(self, itemCode):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
-    def GetBookItems(self, isbn):
+    def GetBookItems(self, isbn, onlyAvailable=False):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
     def AddBookItem(self, book):
@@ -39,7 +39,7 @@ class DataStoreInterface:
     def GetTransaction(self, transactionId):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
-    def GetTransactions(self, username, onlyActive=False):
+    def GetTransactions(self, username="", onlyActive=False):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
     def AddTransaction(self, transaction):
@@ -55,6 +55,9 @@ class DataStoreInterface:
     def GetNewTransactionId(self):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
+    def GetNewItemCode(self):
+        raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
     def CountBookItems(self, isbn):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
@@ -64,8 +67,17 @@ class DataStoreInterface:
     def CountBooks(self):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
+    def GetAllUsers(self):
+        raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
     def GetAllBooks(self):
         raise NotImplementedError("Subclass must implement abstract method")
     @abstractmethod
+    def GetAllInventory(self):
+        raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
     def GetImage(self, isbn):
+        raise NotImplementedError("Subclass must implement abstract method")
+    @abstractmethod
+    def RemoveUser(self, username):
         raise NotImplementedError("Subclass must implement abstract method")
