@@ -64,7 +64,7 @@ class ReturnController(Controller):
         return False
     
     def table_update(self, row, model):
-        if row >= 0:
+        if row >= 0 and row < len(model.transactions):
             transaction = model.transactions[row]
             model.selectedTransaction = transaction
 
