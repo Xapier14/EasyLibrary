@@ -51,7 +51,7 @@ class LocalDataStore(DataStoreInterface):
         f = open("localDb/users.json", "r")
         users = json.load(f)
         for userEntry in users:
-            userType = userEntry["isAdmin"] if UserEnum.Admin else UserEnum.User
+            userType = UserEnum.Admin if userEntry["isAdmin"] else UserEnum.User
             user = User(userEntry["username"], userType, base64.b64decode(bytes(userEntry["password"], "utf-8")), base64.b64decode(bytes(userEntry["salt"], "utf-8")), userEntry["fullName"])
             self.Users.append(user)
         f.close()
@@ -206,10 +206,10 @@ class LocalDataStore(DataStoreInterface):
                 return book
         return None
 
-    def GetBookItems(self, isbn):
+    def GetBookItems(self, isbn, onlyAvailable=False):
         items = []
         for book in self.LocalBooks:
-            if book.GetISBN().replace("-", "") == isbn.replace("-", ""):
+            if book.GetISBN().replace("-", "") == isbn.replace("-", "") and (not onlyAvailable or not book.GetBorrowed()):
                 items.append(book)
         return items
 
@@ -226,10 +226,10 @@ class LocalDataStore(DataStoreInterface):
                 return transaction
         return None
 
-    def GetTransactions(self, username, onlyActive = False):
+    def GetTransactions(self, username = "", onlyActive = False):
         transactions = []
         for transaction in self.Transactions:
-            if transaction.GetBorrower() == username:
+            if transaction.GetBorrower() == username or username == "":
                 if onlyActive and transaction.GetReturned():
                     continue
                 transactions.append(transaction)
@@ -257,7 +257,10 @@ class LocalDataStore(DataStoreInterface):
         return locations
     
     def GetNewTransactionId(self):
-        return len(self.Transactions) + 1
+        return self.Transactions[-1].GetID() + 1
+
+    def GetNewItemCode(self):
+        return self.LocalBooks[-1].GetItemCode() + 1
     
     def CountBookItems(self, isbn):
         count = 0
@@ -272,8 +275,14 @@ class LocalDataStore(DataStoreInterface):
     def CountBooks(self):
         return len(self.GlobalBooks)
 
+    def GetAllUsers(self):
+        return self.Users
+
     def GetAllBooks(self):
         return self.GlobalBooks
+
+    def GetAllInventory(self):
+        return self.LocalBooks
 
     def GetImage(self, isbn = None):
         if (isbn != None):
@@ -285,3 +294,10 @@ class LocalDataStore(DataStoreInterface):
                     elif exists("localDb/images/" + book.GetISBN().replace("-", "") + ".png"):
                         return "localDb/images/" + book.GetISBN().replace("-", "") + ".png"
         return "localDb/images/default.png"
+    
+    def RemoveUser(self, username):
+        for user in self.Users:
+            if user.GetUsername() == username:
+                self.Users.remove(user)
+                return True
+        return False
