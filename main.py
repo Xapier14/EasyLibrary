@@ -16,11 +16,11 @@ import make
 #     elif platform.release() == "8" or platform.release() == "10":
 #         ctypes.windll.shcore.SetProcessDpiAwareness(True)
 
-# Prepare datastore
-datastore = data.GetDataStore()
+# Prepare datastore singleton
+data.GetDataStore()
 
 # Prepare initial login controller
-app.PushPairToStack(make.MakeLogin(datastore))
+app.PushPairToStack(make.MakeLoginService())
 
 # Main program loop
 while app.HasControllerOnStack():
