@@ -224,7 +224,10 @@ class AdminController(Controller):
         datastore = data.GetDataStore()
         model.transactionsModel.transactions = []
         for transaction in datastore.GetTransactions(onlyActive=False):
-            daysBetween = dateTool.GetDaysBetween(transaction.GetBorrowedOn(), dateTool.GetToday())
+            targetOverdue = dateTool.GetToday()
+            if transaction.GetReturnedOn() != None:
+                targetOverdue = transaction.GetReturnedOn()
+            daysBetween = dateTool.GetDaysBetween(transaction.GetBorrowedOn(), targetOverdue)
             localBook = datastore.GetBookItem(transaction.GetItemCode())
             globalBook = datastore.GetBook(localBook.GetISBN())
             entry = [str(transaction.GetID()), str(transaction.GetItemCode()), globalBook.GetTitle(), globalBook.GetAuthor(), transaction.GetBorrower(), dateTool.DateTimeToString(transaction.GetBorrowedOn()), str(transaction.GetBorrowDuration()) + " days", dateTool.DateTimeToString(transaction.GetReturnedOn()), "Yes" if transaction.GetReturned() else "No", "Yes" if daysBetween > 7 else "No"]
@@ -612,7 +615,7 @@ class AdminController(Controller):
             sg.Popup("Location not specified.")
             return False
         if item == None:
-            item = BookItem(itemCode, isbn, dateTool.GetToday(), location)
+            item = BookItem(int(itemCode), isbn, dateTool.GetToday(), location)
             datastore.AddBookItem(item)
             sg.Popup("Item created.")
         else:
